@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}CyberHub - Secure Web Demo{% endblock %}
+{% block content %}
+<section class="hero">
+    <h1>CyberHub: Enterprise-Grade Secure Web Platform</h1>
+    <p>A robust Web Application Firewall (WAF)-protected environment designed for cybersecurity education, penetration testing, and real-world attack simulation.</p>
+    <div class="cta-buttons">
+        <a href="http://localhost:8081/dashboard/index.html" target="_blank" class="cta-button primary">Access WAF Dashboard</a>
+        <a href="/status" class="cta-button secondary">View Server Status</a>
+    </div>
+</section>
+
+<section class="about">
+    <h2>About CyberHub</h2>
+    <p>CyberHub is a cutting-edge demo application fortified by a custom-built WAF, simulating a production-grade web environment. It enables users to safely explore secure routes, test attack vectors (e.g., SQL injection, XSS), and observe real-time defense mechanisms in action. Ideal for learners, security professionals, and developers.</p>
+    <div class="stats">
+        <div class="stat-card">
+            <span class="stat-number" id="requestCount">{{ request_count|default(0) }}</span>
+            <p>Total Requests Handled</p>
+        </div>
+        <div class="stat-card">
+            <span class="stat-number">100%</span>
+            <p>WAF Uptime</p>
+        </div>
+        <div class="stat-card">
+            <span class="stat-number">0</span> <!-- Placeholder for future WAF block data -->
+            <p>Attacks Blocked</p>
+        </div>
+    </div>
+    <div class="gif-container">
+        <img src="{{ url_for('static', filename='images/Animation - 1744653263298.gif') }}" alt="CyberHub Animation" class="cyber-gif">
+    </div>
+</section>
+
+<section class="technical-specs">
+    <h2>Technical Specifications</h2>
+    <ul class="spec-list">
+        <li><strong>Framework:</strong> Built on Flask with Python for scalability and performance.</li>
+        <li><strong>WAF Engine:</strong> Custom rule-based system with real-time threat detection.</li>
+        <li><strong>Security Features:</strong> Protection against SQLi, XSS, path traversal, and more.</li>
+        <li><strong>Monitoring:</strong> Real-time request logging and server uptime tracking.</li>
+        <li><strong>Scalability:</strong> Supports up to 50 recent request logs with FIFO queueing.</li>
+    </ul>
+    <p><em>Note:</em> Specifications subject to updates as CyberHub evolves.</p>
+</section>
+
+<section class="uses">
+    <h2>Use Cases</h2>
+    <div class="use-cases">
+        <div class="use-card">
+            <h3>Cybersecurity Training</h3>
+            <p>Gain hands-on experience with WAF defenses against common vulnerabilities (e.g., SQLi, XSS).</p>
+        </div>
+        <div class="use-card">
+            <h3>WAF Rule Testing</h3>
+            <p>Experiment with malicious inputs (e.g., <code>?q=UNION+SELECT</code>) to refine security policies.</p>
+        </div>
+        <div class="use-card">
+            <h3>Ethical Hacking Practice</h3>
+            <p>Simulate controlled attacks to master pentesting techniques in a safe environment.</p>
+        </div>
+    </div>
+</section>
+
+<section class="features">
+    <h2>Core Features</h2>
+    <ul class="feature-list">
+        <li><span class="highlight">Secure Routing:</span> Navigate safe paths like <code>/status</code> and custom endpoints.</li>
+        <li><span class="highlight">Advanced Dashboard:</span> Monitor logs, analyze attack patterns, and manage WAF rules.</li>
+        <li><span class="highlight">Real-Time Analytics:</span> Track requests, uptime, and potential threats instantly.</li>
+        <li><span class="highlight">Custom Rule Engine:</span> Tailor WAF policies to your specific needs.</li>
+    </ul>
+    <p>Test a sample attack: <a href="/?q=<script>alert(1)</script>" class="test-link">Run XSS Demo</a> (Safely blocked by WAF).</p>
+</section>
+
+<section class="get-involved">
+    <h2>Get Involved</h2>
+    <p>CyberHub is an open platform for security enthusiasts. Contribute to the WAF rules, report bugs, or integrate it into your learning projects. Join our community to stay updated!</p>
+    <div class="cta-buttons">
+        <a href="https://github.com/yourusername/cyberhub" target="_blank" class="cta-button primary">Contribute on GitHub</a>
+        <a href="mailto:contact@cyberhub.com" class="cta-button secondary">Contact Us</a>
+    </div>
+</section>
+{% endblock %}

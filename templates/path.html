@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Path - CyberHub{% endblock %}
+{% block content %}
+<section class="path-section">
+    <h1>Accessed Path</h1>
+    <p>You navigated to: <span class="highlight">{{ path }}</span></p>
+    <p>Test another path using the navigation bar above.</p>
+    <div class="request-counter">
+        <span>Requests Handled: </span><span id="requestCount">Loading...</span>
+    </div>
+</section>
+{% endblock %}

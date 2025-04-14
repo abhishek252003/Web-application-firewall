@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}CyberHub{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="brand"><a href="/">CyberHub</a></div>
+       
+        <ul id="navMenu" class="nav-menu">
+            <li><a href="/">Home</a></li>
+            <li><a href="/status">Status</a></li>
+            <!-- Ensure this link opens in the same tab -->
+            <li><a href="http://localhost:8081/dashboard/index.html" target="_self">WAF Dashboard</a></li>
+            <li class="nav-form">
+                <form action="/path" method="GET">
+                    <input type="text" name="path" placeholder="Test Path" required>
+                    <button type="submit">Go</button>
+                </form>
+            </li>
+        </ul>
+    </nav>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <script src="/static/js/script.js"></script>
+</body>
+</html>

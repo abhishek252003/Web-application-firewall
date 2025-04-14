@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our WAF Dashboard</title>
+    <link rel="stylesheet" href="http://127.0.0.1:8081/dashboard/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Our WAF Dashboard</h1>
+        <button id="themeToggle">Toggle Theme</button>
+    </header>
+    <main>
+        <section id="logsSection">
+            <h2>Request Logs</h2>
+            <button id="pauseButton">Pause Updates</button>
+            <table id="logsTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Timestamp</th>
+                        <th>IP</th>
+                        <th>Method</th>
+                        <th>Path</th>
+                        <th>Body</th>
+                        <th>Status</th>
+                        <th>Reason</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+        <section id="blacklistSection">
+            <h2>Manage Blacklist</h2>
+            <form id="blacklistForm">
+                <input type="text" id="ipInput" placeholder="Enter IP to blacklist (e.g., 192.168.1.1)" required>
+                <button type="submit">Add to Blacklist</button>
+            </form>
+            <ul id="blacklist"></ul>
+        </section>
+        <section id="rulesSection">
+            <h2>Custom Rules</h2>
+            <form id="ruleForm">
+                <input type="text" id="ruleInput" placeholder="Enter regex rule (e.g., eval\()" required>
+                <input type="text" id="ruleDesc" placeholder="Description (e.g., Block eval calls)" required>
+                <button type="submit">Add Rule</button>
+            </form>
+            <ul id="rulesList"></ul>
+        </section>
+        <section id="chartsSection">
+            <h2>Attack & Traffic Stats</h2>
+            <div class="chart-container">
+                <canvas id="attackChart"></canvas>
+                <canvas id="statusChart"></canvas>
+            </div>
+        </section>
+    </main>
+    <script src="/dashboard/script.js"></script>
+</body>
+</html>

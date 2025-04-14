@@ -1,0 +1,475 @@
+/* Advanced futuristic styles for Status page */
+.status-section {
+    background: rgba(11, 22, 44, 0.6);
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 0 40px rgba(0, 255, 204, 0.5), inset 0 0 25px rgba(255, 0, 102, 0.3);
+    position: relative;
+    overflow: hidden;
+    border: 2px solid rgba(0, 255, 204, 0.6);
+    animation: advancedGlow 5s ease-in-out infinite;
+}
+
+@keyframes advancedGlow {
+    0% { box-shadow: 0 0 40px rgba(0, 255, 204, 0.5), inset 0 0 25px rgba(255, 0, 102, 0.3); }
+    50% { box-shadow: 0 0 60px rgba(0, 255, 204, 0.7), inset 0 0 35px rgba(255, 0, 102, 0.4); }
+    100% { box-shadow: 0 0 40px rgba(0, 255, 204, 0.5), inset 0 0 25px rgba(255, 0, 102, 0.3); }
+}
+
+.hacker-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background: linear-gradient(45deg, rgba(0, 0, 0, 0.3), transparent);
+    z-index: 1;
+    overflow: hidden;
+}
+
+.hacker-overlay::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 5px,
+        rgba(0, 255, 204, 0.2) 5px,
+        rgba(0, 255, 204, 0.2) 10px
+    );
+    animation: hackerScroll 2.5s linear infinite;
+}
+
+.hacker-overlay::after {
+    content: '01!@#$%^&*()[]{}ABCXYZ';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: rgba(0, 255, 204, 0.4);
+    font-size: 2rem;
+    text-shadow: 0 0 15px rgba(0, 255, 204, 0.7);
+    animation: hackerText 4.5s linear infinite;
+    opacity: 0.7;
+}
+
+@keyframes hackerScroll {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-40px); }
+}
+
+@keyframes hackerText {
+    0% { transform: translateY(100%); }
+    100% { transform: translateY(-100%); }
+}
+
+.status-container {
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 2;
+    margin-top: 2.5rem;
+}
+
+.status-card {
+    background: rgba(0, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    padding: 2.5rem;
+    border-radius: 15px;
+    text-align: center;
+    min-width: 250px;
+    box-shadow: 0 0 25px rgba(0, 255, 204, 0.4), inset 0 0 15px rgba(255, 0, 102, 0.2);
+    border: 2px solid rgba(0, 255, 204, 0.5);
+    transition: transform 0.4s, box-shadow 0.4s;
+}
+
+.status-card:hover {
+    transform: translateY(-12px) rotateX(5deg);
+    box-shadow: 0 0 40px rgba(0, 255, 204, 0.6), inset 0 0 20px rgba(255, 0, 102, 0.3);
+}
+
+.live-counter {
+    font-size: 3rem;
+    color: #00ffcc;
+    text-shadow: 0 0 20px #00ffcc, 0 0 10px #ff0066;
+    margin-bottom: 1.5rem;
+    animation: neonPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes neonPulse {
+    0% { text-shadow: 0 0 20px #00ffcc, 0 0 10px #ff0066; }
+    50% { text-shadow: 0 0 30px #00ffcc, 0 0 15px #ff0066; }
+    100% { text-shadow: 0 0 20px #00ffcc, 0 0 10px #ff0066; }
+}
+
+.counter-desc {
+    font-size: 1.3rem;
+    color: #e0e1dd;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: 0 0 5px rgba(0, 255, 204, 0.3);
+}
+
+.request-counter {
+    margin-top: 3rem;
+    text-align: center;
+    font-size: 1.7rem;
+    color: #e0e1dd;
+    text-shadow: 0 0 8px #00ffcc;
+}
+
+.request-counter span {
+    color: #00ffcc;
+    margin: 0 0.7rem;
+    animation: blink 1.2s step-end infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+#liveRequestCount {
+    font-size: 2rem;
+    color: #00ffcc;
+    text-shadow: 0 0 15px #00ffcc;
+    animation: pulse 0.7s ease-in-out;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.threat-alerts {
+    margin-top: 2rem;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 0, 102, 0.2);
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(255, 0, 102, 0.4);
+    position: relative;
+    z-index: 2;
+}
+
+.alert-ticker {
+    color: #ff0066;
+    font-size: 1.4rem;
+    text-shadow: 0 0 10px #ff0066;
+    white-space: nowrap;
+    overflow: hidden;
+    animation: tickerScroll 10s linear infinite;
+}
+
+
+.globe-container {
+    margin-top: 2.5rem;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+#globeCanvas {
+    border: 2px solid rgba(0, 255, 204, 0.5);
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(0, 255, 204, 0.4);
+    background: radial-gradient(circle, rgba(0, 27, 42, 0.9), rgba(0, 0, 0, 0.7));
+}
+
+h1 {
+    font-size: 3.5rem;
+    color: #00ffcc;
+    text-shadow: 0 0 25px #00ffcc, 0 0 15px #ff0066;
+    margin-bottom: 2.5rem;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    animation: titleGlow 3.5s ease-in-out infinite;
+}
+
+
+
+h2 {
+    font-size: 2.2rem;
+    color: #00ffcc;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 0 12px #00ffcc;
+    text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+    .status-section {
+        padding: 1.5rem;
+    }
+
+    .status-container {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .status-card {
+        min-width: 200px;
+        padding: 2rem;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    .live-counter {
+        font-size: 2.5rem;
+    }
+
+    .request-counter {
+        font-size: 1.4rem;
+    }
+
+    #liveRequestCount {
+        font-size: 1.7rem;
+    }
+
+    .threat-alerts {
+        margin-top: 1.5rem;
+    }
+
+    .alert-ticker {
+        font-size: 1.2rem;
+    }
+
+    .globe-container {
+        margin-top: 1.5rem;
+    }
+
+    #globeCanvas {
+        width: 300px;
+        height: 300px;
+    }
+}
+/* Futuristic styles for Home page */
+.status-section, .hero, .about, .technical-specs, .uses, .features, .get-involved {
+    background: rgba(11, 22, 44, 0.6);
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 0 40px rgba(0, 255, 204, 0.5), inset 0 0 25px rgba(255, 0, 102, 0.3);
+    position: relative;
+    overflow: hidden;
+    border: 2px solid rgba(0, 255, 204, 0.6);
+    margin-bottom: 2rem;
+    animation: advancedGlow 5s ease-in-out infinite;
+}
+
+@keyframes advancedGlow {
+    0% { box-shadow: 0 0 40px rgba(0, 255, 204, 0.5), inset 0 0 25px rgba(255, 0, 102, 0.3); }
+    50% { box-shadow: 0 0 60px rgba(0, 255, 204, 0.7), inset 0 0 35px rgba(255, 0, 102, 0.4); }
+    100% { box-shadow: 0 0 40px rgba(0, 255, 204, 0.5), inset 0 0 25px rgba(255, 0, 102, 0.3); }
+}
+
+.hacker-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background: linear-gradient(45deg, rgba(0, 0, 0, 0.3), transparent);
+    z-index: 1;
+    overflow: hidden;
+}
+
+.hacker-overlay::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 5px,
+        rgba(0, 255, 204, 0.2) 5px,
+        rgba(0, 255, 204, 0.2) 10px
+    );
+    animation: hackerScroll 2.5s linear infinite;
+}
+
+.hacker-overlay::after {
+    content: '01!@#$%^&*()[]{}ABCXYZ';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: rgba(0, 255, 204, 0.4);
+    font-size: 2rem;
+    text-shadow: 0 0 15px rgba(0, 255, 204, 0.7);
+    animation: hackerText 4.5s linear infinite;
+    opacity: 0.7;
+}
+
+@keyframes hackerScroll {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-40px); }
+}
+
+@keyframes hackerText {
+    0% { transform: translateY(100%); }
+    100% { transform: translateY(-100%); }
+}
+
+h1 {
+    font-size: 3.5rem;
+    color: #00ffcc;
+    text-shadow: 0 0 25px #00ffcc, 0 0 15px #ff0066;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    animation: titleGlow 3.5s ease-in-out infinite;
+}
+
+h2 {
+    font-size: 2.2rem;
+    color: #00ffcc;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 0 12px #00ffcc;
+    text-transform: uppercase;
+}
+
+p {
+    color: #e0e1dd;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.cta-button {
+    padding: 0.8rem 2rem;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.cta-button.primary {
+    background: rgba(0, 255, 204, 0.8);
+    color: #0b162c;
+    border: 2px solid rgba(0, 255, 204, 0.8);
+}
+
+.cta-button.secondary {
+    background: rgba(255, 0, 102, 0.2);
+    color: #00ffcc;
+    border: 2px solid rgba(0, 255, 204, 0.5);
+}
+
+.cta-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px rgba(0, 255, 204, 0.6);
+}
+
+.stats, .use-cases, .spec-list, .feature-list {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+}
+
+.stat-card, .use-card {
+    background: rgba(0, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    padding: 1.5rem;
+    border-radius: 15px;
+    text-align: center;
+    min-width: 200px;
+    box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
+    border: 2px solid rgba(0, 255, 204, 0.5);
+    transition: transform 0.3s;
+}
+
+.stat-card:hover, .use-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-number {
+    font-size: 2rem;
+    color: #00ffcc;
+    text-shadow: 0 0 10px #00ffcc;
+    margin-bottom: 0.5rem;
+}
+
+.spec-list, .feature-list {
+    list-style: none;
+    padding: 0;
+}
+
+.spec-list li, .feature-list li {
+    color: #e0e1dd;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.spec-list li strong, .feature-list li .highlight {
+    color: #00ffcc;
+    text-shadow: 0 0 5px #00ffcc;
+}
+
+.test-link {
+    color: #ff0066;
+    text-decoration: underline;
+    transition: color 0.3s;
+}
+
+.test-link:hover {
+    color: #ff3385;
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+    }
+
+    .cta-button {
+        width: 100%;
+        text-align: center;
+    }
+
+    .stats, .use-cases, .spec-list, .feature-list {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .stat-card, .use-card {
+        width: 100%;
+        max-width: 300px;
+    }
+}

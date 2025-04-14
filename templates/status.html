@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% block title %}Status - CyberHub{% endblock %}
+{% block content %}
+<section class="status-section">
+    <h1>Server Status</h1>
+    <div class="status-container">
+        <div class="status-card">
+            <h2>Uptime</h2>
+            <div class="live-counter" id="uptimeCounter" data-uptime="{{ uptime }}">Loading...</div>
+            <!-- <p class="counter-desc">Server running time (HH:MM:SS)</p> -->
+            
+
+            <p class="counter-desc">Server running time </p>
+        </div>
+        <div class="status-card">
+            <h2>Total Requests</h2>
+            <div class="live-counter" id="requestCounter">{{ request_count|default(0) }}</div>
+            <p class="counter-desc">Requests handled</p>
+        </div>
+        <div class="status-card">
+            <h2>Blocked Requests</h2>
+            <div class="live-counter" id="blockedCounter">0</div>
+            <p class="counter-desc">WAF blocks</p>
+        </div>
+    </div>
+    <div class="request-counter">
+        <span>Live Requests: </span><span id="liveRequestCount">Loading...</span>
+    </div>
+    <div class="threat-alerts">
+        <marquee behavior="scroll" direction="left" class="alert-ticker" id="alertTicker">Initializing AI Threat Detection...</marquee>
+    </div>
+</section>
+<script>
+    function formatUptime(seconds) {
+        const hrs = String(Math.floor(seconds / 3600)).padStart(2, '0');
+        const mins = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');
+        const secs = String(seconds % 60).padStart(2, '0');
+        return `${hrs}:${mins}:${secs}`;
+    }
+
+    function startUptimeTicker() {
+        const uptimeEl = document.getElementById('uptimeCounter');
+        if (!uptimeEl) return;
+
+        let uptime = parseInt(uptimeEl.getAttribute('data-uptime')) || 0;
+        uptimeEl.textContent = formatUptime(uptime);
+
+        setInterval(() => {
+            uptime += 1;
+            uptimeEl.textContent = formatUptime(uptime);
+        }, 1000);
+    }
+
+    document.addEventListener('DOMContentLoaded', startUptimeTicker);
+</script>
+
+<script>
+    function animateCounter(id, target) {
+        const counter = document.getElementById(id);
+        let current = 0;
+        const duration = 2000;
+        const increment = target / (duration / 16);
+        const randomChars = '01!@#$%^&*()[]{}';
+
+        function update() {
+            if (current < target) {
+                current += increment + (Math.random() * 10 - 5);
+                if (current > target) current = target;
+                let display = current.toFixed(2).toString();
+                for (let i = 0; i < 3; i++) {
+                    if (Math.random() > 0.7) {
+                        display += randomChars.charAt(Math.floor(Math.random() * randomChars.length));
+                    }
+                }
+                counter.textContent = display;
+                requestAnimationFrame(update);
+            } else {
+                counter.textContent = target.toFixed(2);
+            }
+        }
+        requestAnimationFrame(update);
+    }
+
+    const initialUptime = parseFloat('{{ uptime|default(0) }}') || 0;
+    const initialRequests = parseInt('{{ request_count|default(0) }}') || 0;
+
+   
+    animateCounter('requestCounter', initialRequests);
+
+    let liveCount = initialRequests;
+    setInterval(() => {
+        liveCount += Math.floor(Math.random() * 5);
+        const liveCounter = document.getElementById('liveRequestCount');
+        if (liveCounter) {
+            liveCounter.textContent = liveCount;
+            liveCounter.style.animation = 'pulse 0.5s ease';
+            setTimeout(() => liveCounter.style.animation = '', 500);
+        }
+    }, 2000);
+
+    async function updateWAFStats() {
+        try {
+            const response = await fetch('/api/logs');
+            const data = await response.json();
+            const blockedCounter = document.getElementById('blockedCounter');
+            if (blockedCounter) {
+                animateCounter('blockedCounter', data.blocked || 0);
+            }
+            const alertTicker = document.getElementById('alertTicker');
+            if (alertTicker && data.attacks) {
+                const alerts = data.attacks.map(attack => `High-risk ${attack.toUpperCase()} detected!`);
+                alertTicker.textContent = alerts[Math.floor(Math.random() * alerts.length)] || 'System Secure';
+            }
+        } catch (error) {
+            console.error('Error fetching WAF stats:', error);
+        }
+    }
+    setInterval(updateWAFStats, 3000);
+    updateWAFStats();
+</script>
+<link rel="stylesheet" href="/static/css/status-advanced.css">
+{% endblock %}
