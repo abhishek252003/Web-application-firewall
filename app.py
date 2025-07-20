@@ -3,8 +3,6 @@ from datetime import datetime
 import time
 
 app = Flask(__name__)
-
-# Track server start time and requests
 start_time = time.time()
 request_count = 0
 recent_requests = []
@@ -29,17 +27,12 @@ def catch_all(path):
 
 @app.route('/status')
 def status():
-    global start_time, request_count
     uptime_seconds = int(time.time() - start_time)
     return render_template('status.html', uptime=uptime_seconds, request_count=request_count)
-
-
-
 
 @app.route('/api/requests')
 def api_requests():
     return jsonify(recent_requests)
 
 if __name__ == '__main__':
-    print("Protected app running on port 5000...")
-    app.run(port=5000, debug=True)  # Enable debug mode
+    app.run(host='0.0.0.0', port=5000)

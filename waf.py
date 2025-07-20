@@ -1,18 +1,17 @@
-import http.client
-import re
-import time
-import sqlite3
-from urllib.parse import urlparse, parse_qs, unquote
-from collections import defaultdict
 from flask import Flask, request, jsonify, send_from_directory
-from datetime import datetime
+from urllib.parse import urlparse, unquote
+import http.client
+import time
+import re
+import sqlite3
+from collections import defaultdict
 from rules import is_malicious
 from db import init_db, log_request, is_blacklisted, add_to_blacklist, remove_from_blacklist, get_blacklist, get_rules, add_rule, delete_rule
 
 app = Flask(__name__)
-
-# Rate limiting storage
 request_counts = defaultdict(lambda: [0, time.time()])
+BACKEND_HOST = 'app-51nt.onrender.com'  # <-- Replace with your backend app's Render domain
+BACKEND_PORT = 80  # Always 80 on Render
 
 def rate_limit(ip):
     now = time.time()
@@ -26,20 +25,19 @@ def rate_limit(ip):
 def forward_request(method, path, headers, body):
     try:
         parsed = urlparse(path)
-        conn = http.client.HTTPConnection('localhost', 5000)
+        conn = http.client.HTTPConnection(BACKEND_HOST, BACKEND_PORT)
         conn.request(method, parsed.path + (f'?{parsed.query}' if parsed.query else ''), body, headers)
         response = conn.getresponse()
         return response.status, response.read()
     except Exception as e:
         return 500, f"Server error: {str(e)}".encode()
 
-@app.route('/', defaults={'path': ''})
+@app.route('/', defaults={'path': ''}, methods=['GET', 'POST'])
 @app.route('/<path:path>', methods=['GET', 'POST'])
 def waf(path):
     ip = request.remote_addr
     method = request.method
     body = request.get_data(as_text=True) if method == 'POST' else ''
-    # Decode query string for proper matching
     parsed = urlparse(request.full_path)
     query = unquote(parsed.query)
     request_data = f"{method} {parsed.path} {query} {body}".lower()
@@ -63,13 +61,7 @@ def waf(path):
 
     status, response = forward_request(method, path, dict(request.headers), body)
     log_request(ip, method, parsed.path, body, 'allowed', '')
-    if isinstance(response, bytes):
-        return response, status
     return response, status
-
-@app.route('/dashboard/<path:filename>')
-def serve_dashboard(filename):
-    return send_from_directory('dashboard', filename)
 
 @app.route('/api/logs')
 def get_logs():
@@ -139,5 +131,4 @@ def get_stats():
     })
 
 if __name__ == '__main__':
-    print("WAF running on port 8081...")
-    app.run(port=8081)
+    app.run(host='0.0.0.0', port=10000)
